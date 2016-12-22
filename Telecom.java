@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,6 +83,30 @@ public class Telecom {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
+		}
+		private static void readMainFile(String fileName,ArrayList<BasaSubscriber> basa) throws IOException {
+			File file = new File(fileName);
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			line = "";
+			mainline = "";
+			while ((line = (br).readLine()) != null) {
+				mainline = mainline + line;
+			}
+			String[] lines = mainline.split(";");
+
+			double debt = 0;
+			for (int i = 0; i < lines.length; i++) {
+				number = lines[i];
+				data = lines[i + 1];
+				addres = lines[i + 2];
+				money = lines[i + 3];
+				debt = Double.parseDouble(money);
+				basanew.add(new BasaSubscriber(number, data, addres, debt));
+				i = i + 3;
+			}
+			br.close();
+			fr.close();
 		}
 
 }
