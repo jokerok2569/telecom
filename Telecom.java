@@ -41,4 +41,47 @@ public class Telecom {
 				
 				
 			}
+		static void writeMainFile(String file,ArrayList<BasaSubscriber> basa) throws IOException {
+			try {
+				FileWriter outmain = new FileWriter(new File(file).getAbsoluteFile());
+				FileWriter out = new FileWriter(new File(fileDay).getAbsoluteFile());
+				try {
+					for (int j = 0; j < basaAll.size(); j++) {
+						outmain.write(basaAll.get(j).getPhoneNumber());
+						outmain.write(";");
+						outmain.write(basaAll.get(j).getSubscriberData());
+						outmain.write(";");
+						outmain.write(basaAll.get(j).getAddress());
+						outmain.write(";");
+						String str = Double.toString(basaAll.get(j).getDebt());
+						outmain.write(str);
+						outmain.write(";");
+						outmain.write("\r\n");
+						
+						out.write(basaAll.get(j).getPhoneNumber());
+						out.write(";");
+						 str = Double.toString(basaAll.get(j).getDebt());
+						out.write(str);
+						out.write(";");
+						out.write("\r\n");
+					}
+				} finally {
+					outmain.close();
+					out.close();
+					
+				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+
+			}
+
+			try {
+				readMainFile(fileMain,basanew);
+				readDayFile(fileDay,basaDay);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+		}
+
 }
+
